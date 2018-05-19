@@ -15,7 +15,10 @@ ENV LC_ALL en_US.UTF-8
 
 # Prepare running GTK stuff
 # Replace 1000 with your user / group id
-RUN export uid=1000 gid=1000 && \
+# docker build --build-arg UID=`id -u` GID=`id -g` Dockerfile
+ARG UID
+ARG GID
+RUN export uid=${UID} gid=${GID} && \
     mkdir -p /home/developer && \
     echo "developer:x:${uid}:${gid}:Developer,,,:/home/developer:/bin/bash" >> /etc/passwd && \
     echo "developer:x:${uid}:" >> /etc/group && \
